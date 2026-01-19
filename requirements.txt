@@ -1,0 +1,10 @@
+dash
+pandas
+plotly
+sqlalchemy
+psycopg2-binary
+mysql-connector-python
+python-dotenv
+azure-keyvault
+azure-identity
+flask-caching
