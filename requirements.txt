@@ -8,3 +8,6 @@ python-dotenv
 azure-keyvault
 azure-identity
 flask-caching
+msal
+flask
+flask-session
