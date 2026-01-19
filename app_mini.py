@@ -9,6 +9,7 @@ from dash import Dash, html
 # =========================
 # Flask setup
 # =========================
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ["FLASK_SECRET_KEY"]
 app.config["SESSION_TYPE"] = "filesystem"
@@ -79,34 +80,35 @@ def logout():
         f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/logout"
     )
 
+
+
 # =========================
 # HARD protection
 # =========================
+
 @app.before_request
 def block_unauthenticated():
     path = request.path
 
-    if path.startswith("/app") or path.startswith("/_dash"):
-        if "user" not in session:
-            return redirect("/login")
+    protected_paths = (
+            path.startswith("/app")
+            or path.startswith("/_dash")
+            #or path.startswith("/_dash-component-suites")
+    )
+    print("session: ", session)
+    print("path: ", path)
+    print("protected? ", protected_paths)
+
+    if protected_paths and "user" not in session:
+        print(path, " ---> redirecting to login")
+        return redirect("/login")
 
 # =========================
 # Dash app
 # =========================
-dash_app = Dash(
-    __name__,
-    server=app,
-    url_base_pathname="/app/",
-)
+from dummy_dash_app import create_dash_app_mini
 
-dash_app.layout = html.Div(
-    style={"padding": "40px"},
-    children=[
-        html.H1("Protected Dash App"),
-        html.P("If you see this, login works."),
-        html.A("Logout", href="/logout"),
-    ],
-)
+dash_app=create_dash_app_mini(app)
 
 # =========================
 # Run
