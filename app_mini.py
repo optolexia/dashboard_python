@@ -106,9 +106,9 @@ def block_unauthenticated():
 # =========================
 # Dash app
 # =========================
-from dummy_dash_app import create_dash_app_mini
+from dummy_dash_app import create_dash_app
 
-dash_app=create_dash_app_mini(app)
+dash_app=create_dash_app(app)
 
 # =========================
 # Run

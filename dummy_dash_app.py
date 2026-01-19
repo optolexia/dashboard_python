@@ -22,15 +22,16 @@ def create_dash_app(flask_server):
         children=[
             html.H1("Lexplore User Activities (Dev)"),
             dcc.Graph(id="example-graph"),
+            html.A("Logout", href="/logout"),
         ],
     )
 
-    # @dash_app.callback(
-    #     Output("example-graph", "figure"),
-    #     Input("example-graph", "id"),
-    # )
-    # def update_graph(_):
-    #     return px.line(df, x="x", y="y", title="Example Dashboard")
+    @dash_app.callback(
+        Output("example-graph", "figure"),
+        Input("example-graph", "id"),
+    )
+    def update_graph(_):
+        return px.line(df, x="x", y="y", title="Example Dashboard")
 
     return dash_app
 
