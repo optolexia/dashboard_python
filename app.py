@@ -93,8 +93,6 @@ def block_unauthenticated():
             path.startswith("/app")
             or path.startswith("/_dash")
     )
-    print("path: ", path)
-    print("session: ", session)
     if protected_paths and "user" not in session:
         return redirect("/login")
 
