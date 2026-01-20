@@ -4,6 +4,7 @@ import msal
 import os
 import dotenv
 dotenv.load_dotenv()
+from dash_app import create_dash_app
 
 # =========================
 # Flask setup
@@ -12,6 +13,7 @@ dotenv.load_dotenv()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ["FLASK_SECRET_KEY"]
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_PERMANENT"] = False
 Session(app)
 
 # =========================
@@ -36,6 +38,7 @@ def build_msal_app(cache=None):
 # =========================
 # Routes
 # =========================
+
 @app.route("/")
 def index():
     if "user" not in session:
@@ -80,7 +83,6 @@ def logout():
     )
 
 
-
 # =========================
 # HARD protection
 # =========================
@@ -99,7 +101,6 @@ def block_unauthenticated():
 # =========================
 # Dash app
 # =========================
-from dash_app import create_dash_app
 
 dash_app=create_dash_app(app)
 

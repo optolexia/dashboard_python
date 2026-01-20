@@ -11,3 +11,4 @@ flask-caching
 msal
 flask
 flask-session
+gunicorn
